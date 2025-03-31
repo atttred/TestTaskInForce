@@ -18,8 +18,8 @@ public class ShortenedUrlRepository(ApplicationDbContext context) : RepositoryBa
         return result!;
     }
 
-    public async Task<IEnumerable<ShortenedUrl>> GetByUserIdAsync(Guid userId)
+    public async Task<IEnumerable<ShortenedUrl>> GetByUserIdAsync(string userId)
     {
-        return await _context.ShortenedUrls.Where(x => x.CreatedById == userId).ToListAsync();
+        return await _context.ShortenedUrls.Where(x => x.CreatedById == Guid.Parse(userId)).ToListAsync();
     }
 }

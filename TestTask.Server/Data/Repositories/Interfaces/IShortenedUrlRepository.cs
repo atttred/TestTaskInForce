@@ -6,5 +6,5 @@ public interface IShortenedUrlRepository : IRepository<ShortenedUrl>
 {
     Task<ShortenedUrl> GetByOriginalUrlAsync(string originalUrl);
     Task<ShortenedUrl> GetByShortCodeAsync(string shortCode);
-    Task<IEnumerable<ShortenedUrl>> GetByUserIdAsync(Guid userId);
+    Task<IEnumerable<ShortenedUrl>> GetByUserIdAsync(string userId);
 }
