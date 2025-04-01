@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Identity;
 using TestTask.Server.Data.Entities;
 using TestTask.Server.Data.Repositories.Interfaces;
 using TestTask.Server.Data.Repositories.Implementations;
+using TestTask.Server.Services.Interfaces;
+using TestTask.Server.Services.Implementations;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,8 +33,21 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
 .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IAboutRepository, AboutRepository>();
+builder.Services.AddScoped<IAboutService, AboutService>();
+
 builder.Services.AddScoped<IShortenedUrlRepository, ShortenedUrlRepository>();
+builder.Services.AddScoped<IShortUrlService, ShortUrlService>();
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+    });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -48,6 +64,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseRouting();
+app.UseAuthentication();
 
 app.MapControllers();
 

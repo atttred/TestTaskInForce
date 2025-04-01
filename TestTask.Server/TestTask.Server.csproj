@@ -36,8 +36,6 @@
     <Folder Include="Controllers\" />
     <Folder Include="Models\Response\" />
     <Folder Include="Models\Request\" />
-    <Folder Include="Services\Interfaces\" />
-    <Folder Include="Services\Implementations\" />
   </ItemGroup>
 
 </Project>
