@@ -19,6 +19,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
         base.OnModelCreating(builder);
 
         builder.Entity<ShortenedUrl>()
+            .HasIndex(u => u.ShortCode)
+            .IsUnique();
+
+        builder.Entity<ShortenedUrl>()
             .HasOne(s => s.CreatedBy)
             .WithMany(u => u.ShortenedUrls)
             .HasForeignKey(s => s.CreatedById)
@@ -27,7 +31,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
 
         builder.Entity<AboutContent>()
             .HasOne(a => a.ModifiedBy)
-            .WithMany()
+            .WithMany(u => u.ModifiedAboutContents)
             .HasForeignKey(a => a.ModifiedById)
             .IsRequired()
             .OnDelete(DeleteBehavior.Restrict);
