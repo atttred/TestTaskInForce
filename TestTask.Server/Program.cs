@@ -44,8 +44,19 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Account/Login";
+        options.Cookie.HttpOnly = true;
     });
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", policy =>
+    {
+        policy.WithOrigins("https://localhost:5173")
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+    });
+});
 
 builder.Services.AddAuthorization();
 
@@ -66,6 +77,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.UseRouting();
 app.UseAuthentication();
+app.UseCors("AllowReactApp");
 
 app.MapControllers();
 

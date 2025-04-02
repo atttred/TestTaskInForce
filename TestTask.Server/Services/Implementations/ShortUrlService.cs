@@ -47,12 +47,13 @@ public class ShortUrlService : IShortUrlService
     public async Task DeleteUrlAsync(string shortCode, string userId, bool isAdmin)
     {
         var url = await _shortenedUrlRepository.GetByShortCodeAsync(shortCode) ?? throw new Exception("URL not found");
-        if (!isAdmin && url.CreatedById != Guid.Parse(userId))
+        if (isAdmin || url.CreatedById == Guid.Parse(userId))
         {
-            throw new Exception("You are not allowed to delete this URL");
+            await _shortenedUrlRepository.DeleteAsync(url.Id);
+            return;
         }
 
-        await _shortenedUrlRepository.DeleteAsync(url.Id);
+        throw new Exception("You are not allowed to delete this URL");
     }
 
     private static string GenerateShortCode()
