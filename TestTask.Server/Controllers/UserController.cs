@@ -30,10 +30,10 @@ public class UserController : Controller
 
         if (result == "Success")
         {
-            return Ok(new AuthResonse { IsSuccess = true, Message = "User registered successfully." });
+            return Ok(new AuthResponse { IsSuccess = true, Message = "User registered successfully." });
         }
 
-        return BadRequest(new AuthResonse { IsSuccess = false, Message = result });
+        return BadRequest(new AuthResponse { IsSuccess = false, Message = result });
     }
 
     [HttpPost("login")]
@@ -48,10 +48,10 @@ public class UserController : Controller
 
         if (result == "Success")
         {
-            return Ok(new AuthResonse { IsSuccess = true, Message = "User logged in successfully." });
+            return Ok(new AuthResponse { IsSuccess = true, Message = "User logged in successfully." });
         }
 
-        return BadRequest(new AuthResonse { IsSuccess = false, Message = result });
+        return BadRequest(new AuthResponse { IsSuccess = false, Message = result });
     }
 
     [HttpPost("logout")]
@@ -59,7 +59,7 @@ public class UserController : Controller
     public async Task<IActionResult> Logout()
     {
         await _userService.LogoutUserAsync();
-        return Ok(new AuthResonse { IsSuccess = true, Message = "User logged out successfully." });
+        return Ok(new AuthResponse { IsSuccess = true, Message = "User logged out successfully." });
     }
 
     [HttpGet("current")]
