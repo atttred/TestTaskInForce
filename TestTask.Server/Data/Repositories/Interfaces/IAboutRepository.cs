@@ -6,5 +6,4 @@ public interface IAboutRepository : IRepository<AboutContent>
 {
     Task<AboutContent> GetCurrentAsync();
     Task UpdateContentAsync(string content, string userId);
-    Task<AboutContent> GetByIdAsync(Guid id);
 }

@@ -21,10 +21,4 @@ public class AboutRepository(ApplicationDbContext context) : RepositoryBase<Abou
         _context.AboutContent.Update(about);
         await _context.SaveChangesAsync();
     }
-
-    public async Task<AboutContent> GetByIdAsync(Guid id)
-    {
-        var result = await _context.AboutContent.FindAsync(id);
-        return result!;
-    }
 }

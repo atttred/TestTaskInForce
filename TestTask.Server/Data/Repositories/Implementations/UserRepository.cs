@@ -7,7 +7,7 @@ namespace TestTask.Server.Data.Repositories.Implementations;
 
 public class UserRepository(ApplicationDbContext context, UserManager<ApplicationUser> userManager) : RepositoryBase<ApplicationUser>(context), IUserRepository
 {
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<ApplicationUser> _userManager = userManager;
 
     public async Task<IdentityResult> AddAsync(ApplicationUser user, string password)
     {

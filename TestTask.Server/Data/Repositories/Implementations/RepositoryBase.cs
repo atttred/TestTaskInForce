@@ -12,7 +12,7 @@ public abstract class RepositoryBase<T>(ApplicationDbContext context) : IReposit
         return await _context.Set<T>().ToListAsync();
     }
 
-    public virtual async Task<T?> GetByIdAsync(int id)
+    public virtual async Task<T?> GetByIdAsync(Guid id)
     {
         return await _context.Set<T>().FindAsync(id);
     }
@@ -29,7 +29,7 @@ public abstract class RepositoryBase<T>(ApplicationDbContext context) : IReposit
         await _context.SaveChangesAsync();
     }
 
-    public virtual async Task DeleteAsync(int id)
+    public virtual async Task DeleteAsync(Guid id)
     {
         var entity = await GetByIdAsync(id);
         if (entity != null)
