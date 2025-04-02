@@ -46,8 +46,24 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/weatherforecast': {
-                target: 'https://localhost:7119/',
+            '/api': {
+                target: 'https://localhost:5125',
+                changeOrigin: true,
+                secure: false
+            },
+            '/User': {
+                target: 'https://localhost:5125',
+                changeOrigin: true,
+                secure: false
+            },
+            '/About': {
+                target: 'https://localhost:5125',
+                changeOrigin: true,
+                secure: false
+            },
+            '/shortUrl': {
+                target: 'https://localhost:5125',
+                changeOrigin: true,
                 secure: false
             }
         },
